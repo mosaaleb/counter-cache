@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.authors     = ['muhammad ebeid']
   spec.email       = ['muhammed.ebeid@gmail.com']
   spec.homepage    = ''
-  spec.summary     = 'Cache counters for '
+  spec.summary     = 'Cache counters for'
   spec.description = 'Description of CounterCache.'
   spec.license     = 'MIT'
 
