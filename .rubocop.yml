@@ -1,6 +1,6 @@
 require:
-- rubocop-rails
-- rubocop-rspec
+  - rubocop-rails
+  - rubocop-minitest
 
 AllCops:
   Exclude:
