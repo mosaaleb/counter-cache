@@ -8,7 +8,6 @@ ActiveRecord::Migrator.migrations_paths =
   [File.expand_path('../test/dummy/db/migrate', __dir__)]
 
 require 'rails/test_help'
-require 'minitest/spec'
 
 # Filter out the backtrace from minitest
 # while preserving the one from other libraries.
