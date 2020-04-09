@@ -6,8 +6,16 @@ module CounterCache
   module HasCounterCache
     extend ActiveSupport::Concern
 
-    def counter_cached_columns
-      @counter_cached_columns ||= []
+    included do |base|
+      base.class_eval do
+        @counter_cached_columns = []
+      end
+    end
+
+    class_methods do
+      def counter_cached_columns
+        @counter_cached_columns ||= []
+      end
     end
   end
 end

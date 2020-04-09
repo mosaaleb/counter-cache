@@ -7,7 +7,7 @@ class HasCounterCacheTest < ActiveSupport::TestCase
     @post = Post.new(text: 'John Snow is back!')
   end
 
-  test 'has empty array of counter cached columns' do
-    assert_equal [], @post.counter_cached_columns
+  test 'add instance class array of all cached columns' do
+    assert_equal [], Post.counter_cached_columns
   end
 end
