@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require 'active_support/concern'
-
 module CounterCache
   module HasCounterCache
-    extend ActiveSupport::Concern
-
-    included do |base|
+    def self.included(base)
       base.class_eval do
         @counter_cached_columns = []
       end
+
+      base.extend ClassMethods
     end
 
-    class_methods do
-      def counter_cached_columns
-        @counter_cached_columns ||= []
+    module ClassMethods
+      attr_reader :counter_cached_columns
+
+      def inherited(model)
+        HasCounterCache.included(model)
       end
     end
   end
