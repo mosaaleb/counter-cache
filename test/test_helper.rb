@@ -28,3 +28,19 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 
   ActiveSupport::TestCase.fixtures :all
 end
+
+require 'database_cleaner/active_record'
+DatabaseCleaner.strategy = :truncation
+
+class Minitest::Test
+  def before_setup
+    DatabaseCleaner.start
+  end
+
+  def after_teardown
+    DatabaseCleaner.clean
+    p "inside teardown #{Post.counter_cached_columns}"
+    Post.counter_cached_columns = []
+    p "inside teardown #{Post.counter_cached_columns}"
+  end
+end
