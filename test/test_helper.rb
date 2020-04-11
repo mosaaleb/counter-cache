@@ -34,13 +34,12 @@ DatabaseCleaner.strategy = :truncation
 
 class Minitest::Test
   def before_setup
+    Post.counter_cached_columns = []
     DatabaseCleaner.start
   end
 
   def after_teardown
-    DatabaseCleaner.clean
-    p "inside teardown #{Post.counter_cached_columns}"
     Post.counter_cached_columns = []
-    p "inside teardown #{Post.counter_cached_columns}"
+    DatabaseCleaner.clean
   end
 end

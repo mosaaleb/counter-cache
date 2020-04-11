@@ -10,8 +10,14 @@ module CounterCache
 
     class_methods do
       def counter_for(*args)
-        self.counter_cached_columns += args
-        self.counter_cached_columns.uniq!
+        self.counter_cached_columns += self.counter_cached_columns | args
+        class_eval do
+          args.each do |arg|
+            define_method "#{arg}_count" do
+              "Grabbing count for #{arg}..."
+            end
+          end
+        end
       end
     end
   end

@@ -13,7 +13,13 @@ class HasCounterCacheTest < ActiveSupport::TestCase
   end
 
   test 'counter_for only appends arguments if unique' do
-    Post.counter_for :comments, :comments
-    assert_equal [:comments], Post.counter_cached_columns
+    Post.counter_for :comments, :comments, :likes
+    assert_equal %i[comments likes], Post.counter_cached_columns
+  end
+
+  test 'counter_for define cached counters methods on model instances' do
+    Post.counter_for :comments
+    post = Post.create(text: 'You know nothing!')
+    assert_respond_to post, :comments_count, ''
   end
 end
