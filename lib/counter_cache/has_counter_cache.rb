@@ -2,19 +2,16 @@
 
 module CounterCache
   module HasCounterCache
-    def self.included(base)
-      base.class_eval do
-        @counter_cached_columns = []
-      end
+    extend ActiveSupport::Concern
 
-      base.extend ClassMethods
+    included do
+      class_attribute :counter_cached_columns, default: []
     end
 
-    module ClassMethods
-      attr_reader :counter_cached_columns
-
-      def inherited(model)
-        HasCounterCache.included(model)
+    class_methods do
+      def counter_for(*args)
+        self.counter_cached_columns += args
+        self.counter_cached_columns.uniq!
       end
     end
   end
