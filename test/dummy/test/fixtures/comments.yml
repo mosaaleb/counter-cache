@@ -1,7 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-post_one:
+one:
   text: MyString
+  post: one
 
-post_two:
-  text: AnotherString
+two:
+  text: MyString
+  post: two
