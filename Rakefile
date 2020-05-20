@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 begin
   require 'bundler/setup'
 rescue LoadError
@@ -16,7 +18,6 @@ end
 
 require 'bundler/gem_tasks'
 require 'rake/testtask'
-
 
 Rake::TestTask.new(:test) do |t|
   t.libs << 'test'

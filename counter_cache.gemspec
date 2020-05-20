@@ -25,10 +25,14 @@ Gem::Specification.new do |spec|
       'public gem pushes.'
   end
 
-  spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
+  spec.files = Dir['{app,config,db,lib}/**/*',
+                   'MIT-LICENSE', 'Rakefile', 'README.md']
 
   spec.add_dependency 'rails', '~> 6.0.2', '>= 6.0.2.2'
 
-  spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'database_cleaner-active_record'
+  spec.add_development_dependency 'guard'
+  spec.add_development_dependency 'guard-minitest'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'sqlite3'
 end

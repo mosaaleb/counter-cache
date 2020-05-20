@@ -30,6 +30,7 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 require 'database_cleaner/active_record'
+
 DatabaseCleaner.strategy = :truncation
 
 class Minitest::Test
