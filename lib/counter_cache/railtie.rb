@@ -9,7 +9,7 @@ module CounterCache
     end
 
     rake_tasks do
-      load 'tasks/counter_cache_tasks.rake'
+      load 'tasks/counter_cache.rake'
     end
   end
 end
