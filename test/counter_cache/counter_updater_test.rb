@@ -22,10 +22,19 @@ module CounterCache
       refute_nil like.run_callbacks(:destroy)
     end
 
-    test 'increment child_model counter column when created' do
+    test 'increment childmodel counter column when created' do
       post = posts(:one)
       post.comments.create(text: 'some comment')
-      assert_equal 1, post.comments_count
+      assert_equal 1, post.reload.comments_count
+    end
+
+    test 'decrement child model counter column when destroyed' do
+      post = posts(:one)
+      like = post.likes.create
+      assert_equal 1, post.reload.likes_count
+
+      like.destroy
+      assert_equal 0, post.reload.likes_count
     end
   end
 end
