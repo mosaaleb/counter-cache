@@ -1,32 +1,45 @@
 # frozen_string_literal: true
 
+# TODO: <01-06-20> # refactor incr and decr into update method with param
+
 module CounterCache
   class SQL
-    def initialize(parent_class, child_class, parent_id, counter_column)
-      @parent_class = parent_class
-      @child_class = child_class
-      @parent_id = parent_id
+    def initialize(parent_klass, child, counter_column)
+      @parent_klass = parent_klass
+      @child = child
       @counter_column = counter_column
     end
 
     def increment
-      parent_instance.update(column_name: parent_class.column_name + 1)
+      sql = "UPDATE #{parent_table} "\
+            "SET #{counter_column}_count=#{counter_column}_count+1 "\
+            "WHERE #{parent_klass.primary_key}=#{parent_id}"
+
+      execute_sql(sql)
     end
 
     def decrement
-      parent_instance.update(column_name: parent_class.column_name - 1)
+      sql = "UPDATE #{parent_table} "\
+            "SET #{counter_column}_count=#{counter_column}_count-1 "\
+            "WHERE #{parent_klass.primary_key}=#{parent_id}"
+
+      execute_sql(sql)
     end
 
     private
 
-    def column_name
-      "#{counter_column}_count".to_sym
+    attr_reader :parent_klass, :child, :counter_column
+
+    def parent_table
+      parent_klass.name.pluralize.downcase
     end
 
-    def parent_instance
-      parent_class.find(parent_id)
+    def parent_id
+      child.send("#{parent_table.singularize}_id")
     end
 
-    attr_reader :parent_class, :child_class, :parent_id, :counter_column
+    def execute_sql(sql)
+      ActiveRecord::Base.connection.execute(sql)
+    end
   end
 end
