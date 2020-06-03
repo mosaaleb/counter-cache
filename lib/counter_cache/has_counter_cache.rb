@@ -9,8 +9,8 @@ module CounterCache
     end
 
     class_methods do
-      def counter_for(*args)
-        self.counter_cached_columns += self.counter_cached_columns | args
+      def counter_for(counter_column)
+        self.counter_cached_columns |= [counter_column]
         include CounterCache::CounterUpdater
       end
     end

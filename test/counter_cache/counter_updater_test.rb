@@ -7,7 +7,8 @@ module CounterCache
     fixtures :posts, :comments, :likes
 
     def setup
-      Post.counter_for :comments, :likes
+      Post.counter_for :likes
+      Post.counter_for :comments
     end
 
     test 'define increment and decrement callbacks for comment object' do

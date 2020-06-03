@@ -13,9 +13,11 @@ module CounterCache
       assert_equal [:comments], Post.counter_cached_columns
     end
 
-    test 'counter_for only appends arguments if unique' do
-      Post.counter_for :comments, :comments, :likes
-      assert_equal %i[comments likes], Post.counter_cached_columns
+    test 'counter_for appends unique columns to counter_cached_columns' do
+      Post.counter_for :likes
+      Post.counter_for :comments
+      Post.counter_for :comments
+      assert_equal %i[likes comments], Post.counter_cached_columns
     end
   end
 end

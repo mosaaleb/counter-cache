@@ -9,8 +9,10 @@ module CounterCache
     included do
       parent_klass = self
       parent_table = parent_klass.name.pluralize.downcase
+
       counter_cached_columns.each do |counter_column|
         child_klass = counter_column.to_s.classify.constantize
+
         child_klass.class_eval do
           after_create "increment_#{parent_table}_#{counter_column}_count".to_sym
           after_destroy "decrement_#{parent_table}_#{counter_column}_count".to_sym
