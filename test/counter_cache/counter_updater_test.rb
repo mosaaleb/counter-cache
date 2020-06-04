@@ -25,8 +25,8 @@ module CounterCache
 
     test 'increment childmodel counter column when created' do
       post = posts(:one)
-      post.comments.create(text: 'some comment')
-      assert_equal 1, post.reload.comments_count
+      post.likes.create
+      assert_equal 1, post.reload.likes_count
     end
 
     test 'decrement child model counter column when destroyed' do
