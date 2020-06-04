@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: data clumping parent_klass, child_klass
-
 module CounterCache
   module CounterUpdater
     extend ActiveSupport::Concern
