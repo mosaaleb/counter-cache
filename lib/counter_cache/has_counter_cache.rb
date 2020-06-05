@@ -9,10 +9,11 @@ module CounterCache
     end
 
     class_methods do
-      def counter_for(counter_column)
+      def counter_for(counter_column, options = {})
         self.counter_cached_columns |= [counter_column]
 
-        child_klass = counter_column.to_s.classify.constantize
+        child_klass = (options[:class_name] || counter_column)
+                      .to_s.classify.constantize
         child_klass.include CounterUpdater.for(counter_column, self)
       end
     end
