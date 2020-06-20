@@ -11,6 +11,10 @@ AllCops:
 
   DisplayCopNames: true
 
+Metrics/LineLength:
+  Max: 80
+  IngorePatterns: ['(\A|\s)#']
+
 Metrics/BlockLength:
   Exclude:
     - 'Rakefile'
