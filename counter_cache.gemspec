@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'database_cleaner-active_record'
   spec.add_development_dependency 'guard'
   spec.add_development_dependency 'guard-minitest'
+  spec.add_development_dependency 'minitest-reporters'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'sqlite3'
