@@ -54,6 +54,33 @@ end
 `counter_for :line_items` assumes the that there is a `LineItem` model, and it
 will associate the counters in `line_items_count` column.
 
+##### Adding counter columns to parent table
+You can either add your counters to your parent table manually. 
+**Note:** Your column name should end with `_count`
+Ex:
+```ruby
+counter_for :comments
+# column name should be comments_count
+```
+
+Or you can use the custom generator provided by this gem:
+
+```bash
+rails g counter_cache:add_counters [model name] [counter_for option]
+rails g counter_cache:add_counters invoice line_items
+```
+
+This will create a new migration for adding an integer `line_items_count`
+column in `invoices` table with `0` as default value.
+
+Then run `rails db:migrate`.
+
+- `counter_cached_columns` will return all the cached columns defined per model:
+```ruby
+Invoice.counter_cached_columns
+#=> [:line_items]
+```
+
 ##### Using custom counter column name
 
 If you want to use another name, you need to use class_name option passing the 
