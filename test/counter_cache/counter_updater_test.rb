@@ -6,10 +6,21 @@ module CounterCache
   class CounterUpdaterTest < ActiveSupport::TestCase
     fixtures :posts, :comments, :likes
 
+    def setup
+      ActiveRecord::Schema.verbose = false
+      ActiveRecord::Schema.define do
+        add_column :posts, :likes_count, :integer, default: 0
+        add_column :posts, :approves_count, :integer, default: 0
+        add_column :posts, :comments_count, :integer, default: 0
+        add_column :posts, :opinions_count, :integer, default: 0
+      end
+    end
+
     class WithNoClassNameDefinedContext < CounterUpdaterTest
       def setup
         Post.counter_for :likes
         Post.counter_for :comments
+        super
       end
 
       test 'define increment and decrement callbacks for child objects' do
@@ -41,6 +52,7 @@ module CounterCache
       def setup
         Post.counter_for :approves, class_name: :Like
         Post.counter_for :opinions, class_name: :Comment
+        super
       end
 
       test 'define increment and decrement callbacks' do
