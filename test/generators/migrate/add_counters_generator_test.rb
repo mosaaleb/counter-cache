@@ -17,7 +17,7 @@ module CounterCache
 
       test 'raise MissingColumn if attribute is\'nt defined in model' do
         assert_raises MissingColumn do
-          run_generator %w[post bla]
+          run_generator %w[post dislikes]
         end
       end
 
