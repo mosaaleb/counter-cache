@@ -3,8 +3,6 @@
 require 'rails/generators'
 
 module CounterCache
-  MissingColumn = Class.new(StandardError)
-
   module Generators
     class AddCountersGenerator < Rails::Generators::NamedBase
       include Rails::Generators::Migration
@@ -13,11 +11,8 @@ module CounterCache
       argument :column, type: :string, required: true
 
       def generate_migration_file
-        raise(ModelNotFound, "Coudn't find #{name} model") if model_not_found
-
-        if missing_column
-          raise(MissingColumn, "No #{column} found defined in #{name} model")
-        end
+        raise ModelNotFound.new(name) if model_not_found
+        raise MissingColumn.new(name, column) if missing_column
 
         migration_template 'migrate.rb',
                            "db/migrate/add_#{column}_count_to_#{name}s.rb"
