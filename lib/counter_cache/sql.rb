@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: <01-06-20> # refactor incr and decr into update method with param
-
 module CounterCache
   class SQL
     def initialize(parent_klass, child, counter_column)

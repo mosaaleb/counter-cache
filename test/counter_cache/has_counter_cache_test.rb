@@ -4,6 +4,8 @@ require 'test_helper'
 
 module CounterCache
   class HasCounterCacheTest < ActiveSupport::TestCase
+    fixtures :posts, :comments
+
     test 'add instance class array of all cached columns' do
       assert_equal [], Post.counter_cached_columns
     end
